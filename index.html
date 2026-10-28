@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>محادثتي السرية</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101827;
+      color: white;
+      text-align: center;
+    }
+    header {
+      padding: 35px 15px;
+      background: #172554;
+    }
+    h1 { color: #67e8f9; }
+    main {
+      max-width: 480px;
+      margin: 25px auto;
+      padding: 20px;
+    }
+    input, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border: 0;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    input { background: #e5e7eb; }
+    button {
+      background: #06b6d4;
+      color: #082f49;
+      font-weight: bold;
+    }
+    #chat {
+      display: none;
+      margin-top: 20px;
+      text-align: right;
+    }
+    #messages {
+      min-height: 120px;
+      padding: 12px;
+      background: #1f2937;
+      border-radius: 10px;
+      overflow-wrap: anywhere;
+    }
+    .note { color: #cbd5e1; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔐 محادثتي السرية</h1>
+    <p>مساحتك الخاصة للمحادثة</p>
+  </header>
+
+  <main>
+    <h2>الدخول إلى غرفة</h2>
+    <input id="nickname" placeholder="اكتب اسمك">
+    <input id="room" placeholder="اكتب كود الغرفة">
+    <button onclick="enterRoom()">دخول</button>
+
+    <section id="chat">
+      <h2 id="roomTitle"></h2>
+      <div id="messages">
+        <p class="note">لم تُربط الرسائل بالإنترنت بعد.</p>
+      </div>
+      <input id="message" placeholder="اكتب رسالتك">
+      <button onclick="sendMessage()">إرسال تجريبي</button>
+      <p class="note">
+        هذه واجهة أولية فقط؛ الرسائل لا تصل إلى الأجهزة الأخرى بعد.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    function enterRoom() {
+      const name = document.getElementById('nickname').value.trim();
+      const room = document.getElementById('room').value.trim();
+
+      if (!name || !room) {
+        alert('اكتب اسمك وكود الغرفة أولًا');
+        return;
+      }
+
+      document.getElementById('chat').style.display = 'block';
+      document.getElementById('roomTitle').textContent =
+        'غرفة: ' + room;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('message');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const p = document.createElement('p');
+      p.textContent =
+        document.getElementById('nickname').value + ': ' + text;
+
+      document.getElementById('messages').appendChild(p);
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
